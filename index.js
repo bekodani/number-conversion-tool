@@ -2,98 +2,121 @@
     let numArrOne = ["", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"];
     let numArrTwo = ["", "", "twenty" ,"thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"];
     let numberInString = arg.toString();
-    let number = "";
+    let convertedNumber;
 
-    const tens = (arr, num) => {
-        return arr[num]
-    }
-
-    if (numberInString.length == 1 || 
-        numberInString.length == 2 && numberInString[0] == 1) {
-        number = tens(numArrOne, arg)
-    } else if (numberInString.length == 2) {
-        if (numberInString[1] == 0) {
-            number = tens(numArrTwo, numberInString[0])
+    const tens = (num) => {
+        if (num.length == 1 || 
+            num.length == 2 && num[0] == 1) {
+                return numArrOne[num] 
+        } else if (num[1] == 0) {
+            return numArrTwo[num[0]]
         } else {
-            number = `${tens(numArrTwo, numberInString[0])}-${tens(numArrOne,numberInString[1])}`
+            return `${numArrTwo[num[0]]}-${numArrOne[num[1]]}`
         }
     }
 
-    /* let convertedString = '';
+    const hundreds = (num) => {
+        if (num[1] == 0 && num[2] == 0) {
+            return `${numArrOne[num[0]]} hundred`
+        } else if (num[1] == 0) {
+            return `${numArrOne[num[0]]} hundred and ${numArrOne[num[2]]}`
+        } else if (num[1] == 1) {
+            let subNum = num[1]+num[2];
+            subNum = Number(subNum);
+            return `${numArrOne[num[0]]} hundred and ${numArrOne[subNum]}`
+        } else if (num[2] == 0) {
+            return `${numArrOne[num[0]]} hundred and ${numArrTwo[num[1]]}`
+        } else {
+            return `${numArrOne[num[0]]} hundred and ${numArrTwo[num[1]]}-${numArrOne[num[2]]}`
+        }
+    }
+
+    const thousands = (num) => {
+        let thousand;
+        let restNum;
+        if (num.length == 4) {
+            thousand = num[0]
+        } else if (num.length == 5) {
+            thousand = num[0]+num[1]
+        } else if (num.length == 6) {
+            thousand = num[0]+num[1]+num[2]
+        }
+
+        let number = num.replace(thousand, "")
+        let thousandInString;
+
+         if (thousand.length < 3) {
+            thousandInString = tens(thousand)
+        } else if (thousand.length == 3) {
+            thousandInString = `${hundreds(thousand)}`
+        } 
+        restNum = Number(number).toString();
+        console.log("thousand: ", thousand)
+        if (restNum.length == 3) {
+            return `${thousandInString} thousand ${hundreds(restNum)}`
+        } else if (restNum.length == 2) {
+            return `${thousandInString} thousand and ${tens(restNum)}`
+        } else if (restNum.length == 1) {
+            return `${thousandInString} thousand and ${tens(restNum)}`
+        }
+    }
+
+    const millions = (num) => {
+        let millions;
+        let restNum;
+        if (num.length == 7) {
+            millions = num[0]
+        } else if (num.length == 8) {
+            millions = num[0]+num[1]
+        } else if (num.length == 9) {
+            millions = num[0]+num[1]+num[2]
+        }
+
+        let number = num.replace(millions, "")
+        let millionInString;
+
+        restNum = Number(number).toString();
+
+        if (millions.length < 3) {
+            millionInString= tens(millions)
+        } else if (millions.length == 3) {
+            millionInString= `${hundreds(millions)}`
+        } 
+
+        if (restNum.length >= 4) {
+            return `${millionInString} million ${thousands(restNum)}` 
+        } else if (restNum.length < 3) {
+            return `${millionInString} million ${tens(restNum)}`
+        } else if (restNum.length == 3) {
+            return `${millionInString} million ${hundreds(restNum)}`
+        }
+        console.log(millionInString)
+        
+    }
+
+    // tens
+    if (numberInString.length < 3) {
+        convertedNumber = tens(numberInString)
+    }
+
+    // hundreds
 
     if (numberInString.length == 3) {
-        hundreds(numberInString)
+        convertedNumber = hundreds(numberInString)
     }
 
-    function hundreds(param) {
-        if (param[1] == 0 && param[2] == 0) {
-            convertedString = `${numArrOne[param[0]-1]} hundred`
-        }
+    // thousands 
 
-        else if (param[1] == 0) {
-            convertedString = `${numArrOne[param[0]-1]} hundred and ${numArrOne[param[2]-1]}`
-        }
-
-        else if (param[2] == 0) {
-            convertedString = `${numArrOne[param[0]-1]} hundred and ${numArrTwo[param[1]-2]}`
-        } 
-        
-        else if (param[1] == 1){
-            let subNum = param[1]+param[2];
-            subNum = Number(subNum)
-            convertedString = `${numArrOne[param[0]-1]} hundred and ${numArrOne[subNum-1]}`
-        } else {
-            convertedString = `${numArrOne[param[0]-1]} hundred and ${numArrTwo[param[1]-2]}-${numArrOne[param[2]-1]}`
-        }
-
+    if (numberInString.length >= 4 && numberInString.length < 7) {
+        convertedNumber = thousands(numberInString)
     }
-     convertedString = `three hundred and forty-two thousand two hundred and fifty-one` 
     
-     if (numberInString.length == 1 || 
-        num == 10 || 
-        num == 11 || 
-        num == 12 || 
-        num == 13 || 
-        num == 14 || 
-        num == 15 || 
-        num == 16 || 
-        num == 17 || 
-        num == 18 || 
-        num == 19) {
-        convertedString = `${numArrOne[num-1]}`
+    // millions
+
+    if (numberInString.length >= 7) {
+        convertedNumber = millions(numberInString)
     }
-
-    else if (numberInString.length == 2) {
-        if (numberInString[1] == 0) {
-            convertedString = `${numArrTwo[numberInString[0]-2]}`
-        } else {
-            convertedString = `${numArrTwo[numberInString[0]-2]}-${numArrOne[numberInString[1]-1]}`
-        }
-    }
-
-    else if (numberInString.length == 3) {
-        if (numberInString[1] == 0 && numberInString[2] == 0) {
-            convertedString = `${numArrOne[numberInString[0]-1]} hundred`
-        }
-
-        else if (numberInString[1] == 0) {
-            convertedString = `${numArrOne[numberInString[0]-1]} hundred and ${numArrOne[numberInString[2]-1]}`
-        }
-
-        else if (numberInString[2] == 0) {
-            convertedString = `${numArrOne[numberInString[0]-1]} hundred and ${numArrTwo[numberInString[1]-2]}`
-        } 
-        
-        else if (numberInString[1] == 1){
-            let subNum = numberInString[1]+numberInString[2];
-            subNum = Number(subNum)
-            convertedString = `${numArrOne[numberInString[0]-1]} hundred and ${numArrOne[subNum-1]}`
-        } else {
-            convertedString = `${numArrOne[numberInString[0]-1]} hundred and ${numArrTwo[numberInString[1]-2]}-${numArrOne[numberInString[2]-1]}`
-        }
-    } */
-
-    return number;
+    return convertedNumber;
 };
 
-console.log(numberConversion(80)) 
+console.log(numberConversion(21300420)) 
