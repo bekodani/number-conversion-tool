@@ -1,0 +1,47 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #D4F1F4;
+    font-family: 'Luckiest Guy', cursive;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+}
+
+#result-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+#result {
+    color: #05445E;
+    font-size: 80px;
+    text-align: center;
+}
+
+input[type=number] {
+    padding: 10px;
+    margin: 10px 0;
+    border: 0;
+    box-shadow:0 0 15px 4px #189ab423;
+    border-radius: 10px;
+}
+
+input {
+    font-family:inherit;
+    font-size: inherit;
+}
+
+input[type=number]:focus {
+    outline-width: 0;
+}
+
+h1 {
+    color: #189AB4;
+}

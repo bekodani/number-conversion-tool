@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Montserrat:wght@400;500;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="wrapper">
+            <h1>type a number:</h1>
+            <input type="number" id="input" data-maxlength="9" oninput="this.value=this.value.slice(0,this.dataset.maxlength)"/> 
+        </div>
+    </div>
+    <div id="result-container">
+        <h2 id="result"></h2>
+    </div>
+    <script src="./index.js"></script>
+</body>
+</html>
