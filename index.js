@@ -1,7 +1,7 @@
-let numberConversion = function(arg) {
+let numberConversion = function(param) {
 	let numArrOne = ["", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"];
 	let numArrTwo = ["", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"];
-	let numberInString = arg.toString();
+	let numberInString = param.toString();
 	let convertedNumber;
 
     if (numberInString == 0) {
